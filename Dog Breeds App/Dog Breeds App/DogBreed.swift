@@ -9,7 +9,7 @@ import Foundation
 
 class DogBreed {
     
-    let name: String
+    let name: String    
     let temperament: String
     
     init(name: String, temperament: String) {

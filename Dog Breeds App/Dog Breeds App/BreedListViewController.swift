@@ -34,6 +34,9 @@ class BreedListViewController: UITableViewController {
         config.text = breed.name
         config.secondaryText = breed.temperament
         cell.contentConfiguration = config
+        if row % 2 == 0 {
+            cell.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+        }
         return cell
     }
     

@@ -50,6 +50,11 @@ class Dog_Breeds_AppTests: XCTestCase {
             }
             XCTAssertEqual(config.text, name)
             XCTAssertEqual(config.secondaryText, temperament)
+            if index % 2 == 0 {
+                XCTAssertEqual(cell?.backgroundColor, UIColor.lightGray.withAlphaComponent(0.2))
+            } else {
+                XCTAssertEqual(cell?.backgroundColor, nil)
+            }
         }
     }
     
