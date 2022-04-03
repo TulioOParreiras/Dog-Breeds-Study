@@ -36,7 +36,7 @@ class BreedListViewController: UITableViewController {
     ]
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        dogBreeds.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
