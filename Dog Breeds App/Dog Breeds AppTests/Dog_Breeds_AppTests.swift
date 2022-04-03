@@ -62,15 +62,12 @@ class Dog_Breeds_AppTests: XCTestCase {
         let dataSource = sut.tableView.dataSource
         let numberOfRows = dataSource?.tableView(sut.tableView,
                                                  numberOfRowsInSection: 0)
-        XCTAssertEqual(numberOfRows, 10)
-    }
-    
-    func test_viewLoad_rendersBreeds() {
-        let sut = BreedListViewController()
+        let expectedNumberOfRows = 10
+        guard numberOfRows == expectedNumberOfRows else {
+            XCTFail("Expected to have \(expectedNumberOfRows) cells, got \(String(describing: numberOfRows)) instead")
+            return
+        }
         
-        sut.loadViewIfNeeded()
-        
-        let dataSource = sut.tableView.dataSource
         let dogBreeds: [DogBreed] = [
             DogBreed(name: "Affenpinscher", temperament: "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving"),
             DogBreed(name: "Afghan Hound", temperament: "Aloof, Clownish, Dignified, Independent, Happy"),
