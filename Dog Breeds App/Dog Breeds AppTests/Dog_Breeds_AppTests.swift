@@ -18,7 +18,7 @@ class Dog_Breeds_AppTests: XCTestCase {
         let dataSource = sut.tableView.dataSource
         let numberOfRows = dataSource?.tableView(sut.tableView,
                                                  numberOfRowsInSection: 0)
-        let expectedNumberOfRows = 10
+        let expectedNumberOfRows = 19
         guard numberOfRows == expectedNumberOfRows else {
             XCTFail("Expected to have \(expectedNumberOfRows) cells, got \(String(describing: numberOfRows)) instead")
             return
