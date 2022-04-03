@@ -23,6 +23,19 @@ class BreedListViewController: UITableViewController {
         "American Bulldog",
     ]
     
+    let temperaments: Array = [
+        "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving",
+        "Aloof, Clownish, Dignified, Independent, Happy",
+        "Wild, Hardworking, Dutiful",
+        "Outgoing, Friendly, Alert, Confident, Intelligent, Courageous",
+        "Loyal, Independent, Intelligent, Brave",
+        "Docile, Alert, Responsive, Dignified, Composed, Friendly, Receptive, Faithful, Courageous",
+        "Loving, Protective, Trainable, Dutiful, Responsible",
+        "Friendly, Energetic, Loyal, Gentle, Confident",
+        "Friendly, Affectionate, Devoted, Loyal, Dignified, Playful",
+        "Friendly, Assertive, Energetic, Loyal, Gentle, Confident, Dominant",
+    ]
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         10
     }
@@ -32,6 +45,7 @@ class BreedListViewController: UITableViewController {
         let cell = UITableViewCell()
         var config = cell.defaultContentConfiguration()
         config.text = names[row]
+        config.secondaryText = temperaments[row]
         cell.contentConfiguration = config
         return cell
     }
@@ -77,6 +91,35 @@ class Dog_Breeds_AppTests: XCTestCase {
                                                                      section: 0))
             let config = cell?.contentConfiguration as? UIListContentConfiguration
             XCTAssertEqual(config?.text, name)
+        }
+    }
+    
+    func test_viewLoad_rendersBreedsTemperaments() {
+        let sut = BreedListViewController()
+        
+        sut.loadViewIfNeeded()
+        
+        let dataSource = sut.tableView.dataSource
+        let temperaments: Array = [
+            "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving",
+            "Aloof, Clownish, Dignified, Independent, Happy",
+            "Wild, Hardworking, Dutiful",
+            "Outgoing, Friendly, Alert, Confident, Intelligent, Courageous",
+            "Loyal, Independent, Intelligent, Brave",
+            "Docile, Alert, Responsive, Dignified, Composed, Friendly, Receptive, Faithful, Courageous",
+            "Loving, Protective, Trainable, Dutiful, Responsible",
+            "Friendly, Energetic, Loyal, Gentle, Confident",
+            "Friendly, Affectionate, Devoted, Loyal, Dignified, Playful",
+            "Friendly, Assertive, Energetic, Loyal, Gentle, Confident, Dominant",
+        ]
+        
+        for index in 0 ..< temperaments.count {
+            let temperament = temperaments[index]
+            let cell = dataSource?.tableView(sut.tableView,
+                                             cellForRowAt: IndexPath(row: index,
+                                                                     section: 0))
+            let config = cell?.contentConfiguration as? UIListContentConfiguration
+            XCTAssertEqual(config?.secondaryText, temperament)
         }
     }
     
