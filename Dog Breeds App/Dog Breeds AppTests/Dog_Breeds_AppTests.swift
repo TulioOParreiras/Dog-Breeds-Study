@@ -37,8 +37,7 @@ class Dog_Breeds_AppTests: XCTestCase {
             DogBreed(name: "American Bulldog", temperament: "Friendly, Assertive, Energetic, Loyal, Gentle, Confident, Dominant"),
         ]
         
-        for index in 0 ..< dogBreeds.count {
-            let dogBreed = dogBreeds[index]
+        dogBreeds.enumerated().forEach { index, dogBreed in
             let name = dogBreed.name
             let temperament = dogBreed.temperament
             let cell = dataSource?.tableView(sut.tableView,
