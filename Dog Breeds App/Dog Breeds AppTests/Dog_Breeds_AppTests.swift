@@ -8,21 +8,36 @@
 import XCTest
 @testable import Dog_Breeds_App
 
+class MockDogBreedsLoader: DogBreedsLoader {
+    func load(completion: @escaping ([DogBreed]?, Error?) -> Void) {
+        let dogBreeds: [DogBreed] = [
+            DogBreed(name: "Affenpinscher", temperament: "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving"),
+            DogBreed(name: "Afghan Hound", temperament: "Aloof, Clownish, Dignified, Independent, Happy"),
+            DogBreed(name: "African Hunting Dog", temperament: "Wild, Hardworking, Dutiful"),
+            DogBreed(name: "Airedale Terrier", temperament: "Outgoing, Friendly, Alert, Confident, Intelligent, Courageous"),
+            DogBreed(name: "Akbash Dog", temperament: "Loyal, Independent, Intelligent, Brave"),
+            DogBreed(name: "Akita", temperament: "Docile, Alert, Responsive, Dignified, Composed, Friendly, Receptive, Faithful, Courageous"),
+            DogBreed(name: "Alapaha Blue Blood", temperament: "Loving, Protective, Trainable, Dutiful, Responsible"),
+            DogBreed(name: "Alaskan Husky", temperament: "Friendly, Energetic, Loyal, Gentle, Confident"),
+            DogBreed(name: "Alaskan Malamute", temperament: "Friendly, Affectionate, Devoted, Loyal, Dignified, Playful"),
+            DogBreed(name: "American Bulldog", temperament: "Friendly, Assertive, Energetic, Loyal, Gentle, Confident, Dominant"),
+        ]
+        completion(dogBreeds, nil)
+    }
+    
+}
+
 class Dog_Breeds_AppTests: XCTestCase {
 
     func test_viewLoad_rendersDogBreeds() {
         let sut = BreedListViewController()
+        sut.loader = MockDogBreedsLoader()
         
         sut.loadViewIfNeeded()
         
         let dataSource = sut.tableView.dataSource
         let numberOfRows = dataSource?.tableView(sut.tableView,
                                                  numberOfRowsInSection: 0)
-        let expectedNumberOfRows = 19
-        guard numberOfRows == expectedNumberOfRows else {
-            XCTFail("Expected to have \(expectedNumberOfRows) cells, got \(String(describing: numberOfRows)) instead")
-            return
-        }
         
         let dogBreeds: [DogBreed] = [
             DogBreed(name: "Affenpinscher", temperament: "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving"),
@@ -36,6 +51,12 @@ class Dog_Breeds_AppTests: XCTestCase {
             DogBreed(name: "Alaskan Malamute", temperament: "Friendly, Affectionate, Devoted, Loyal, Dignified, Playful"),
             DogBreed(name: "American Bulldog", temperament: "Friendly, Assertive, Energetic, Loyal, Gentle, Confident, Dominant"),
         ]
+        let expectedNumberOfRows = dogBreeds.count
+        
+        guard numberOfRows == expectedNumberOfRows else {
+            XCTFail("Expected to have \(expectedNumberOfRows) cells, got \(String(describing: numberOfRows)) instead")
+            return
+        }
         
         dogBreeds.enumerated().forEach { index, dogBreed in
             let name = dogBreed.name

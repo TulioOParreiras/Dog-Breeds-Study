@@ -7,32 +7,60 @@
 
 import UIKit
 
+protocol DogBreedsLoader {
+    func load(completion: @escaping ([DogBreed]?, Error?) -> Void)
+}
+
+class RemoteDogBreedsLoader: DogBreedsLoader {
+    
+    func load(completion: @escaping ([DogBreed]?, Error?) -> Void) {
+        let url = URL(string: "https://api.thedogapi.com/v1/breeds")!
+        let urlRequest = NSMutableURLRequest(url: url)
+        urlRequest.addValue("0810897f-072d-4841-8ab1-78cb79205230", forHTTPHeaderField: "x-api-key")
+        
+        URLSession.shared.dataTask(with: urlRequest as URLRequest) { data, response, error in
+            if let data = data {
+                do {
+                    let dogBreedsResponse = try JSONDecoder().decode([DogBreed].self, from: data)
+                    completion(dogBreedsResponse, nil)
+                } catch (let decodeError) {
+                    completion(nil, decodeError)
+                }
+            }
+            if let error = error {
+                completion(nil, error)
+            }
+        }.resume()
+        
+    }
+    
+}
+
 class BreedListViewController: UITableViewController {
     
-    let dogBreeds: [DogBreed] = [
-        DogBreed(name: "Affenpinscher", temperament: "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving"),
-        DogBreed(name: "Afghan Hound", temperament: "Aloof, Clownish, Dignified, Independent, Happy"),
-        DogBreed(name: "African Hunting Dog", temperament: "Wild, Hardworking, Dutiful"),
-        DogBreed(name: "Airedale Terrier", temperament: "Outgoing, Friendly, Alert, Confident, Intelligent, Courageous"),
-        DogBreed(name: "Akbash Dog", temperament: "Loyal, Independent, Intelligent, Brave"),
-        DogBreed(name: "Akita", temperament: "Docile, Alert, Responsive, Dignified, Composed, Friendly, Receptive, Faithful, Courageous"),
-        DogBreed(name: "Alapaha Blue Blood", temperament: "Loving, Protective, Trainable, Dutiful, Responsible"),
-        DogBreed(name: "Alaskan Husky", temperament: "Friendly, Energetic, Loyal, Gentle, Confident"),
-        DogBreed(name: "Alaskan Malamute", temperament: "Friendly, Affectionate, Devoted, Loyal, Dignified, Playful"),
-        DogBreed(name: "American Bulldog", temperament: "Friendly, Assertive, Energetic, Loyal, Gentle, Confident, Dominant"),
-        DogBreed(name: "American Bully", temperament: "Strong Willed, Stubborn, Friendly, Clownish, Affectionate, Loyal, Obedient, Intelligent, Courageous"),
-        DogBreed(name: "American Eskimo Dog", temperament: "Friendly, Alert, Reserved, Intelligent, Protective"),
-        DogBreed(name: "American Eskimo Dog (Miniature)", temperament: "Friendly, Alert, Reserved, Intelligent, Protective"),
-        DogBreed(name: "American Foxhound", temperament: "Kind, Sweet-Tempered, Loyal, Independent, Intelligent, Loving"),
-        DogBreed(name: "American Pit Bull Terrier", temperament: "Strong Willed, Stubborn, Friendly, Clownish, Affectionate, Loyal, Obedient, Intelligent, Courageous"),
-        DogBreed(name: "American Staffordshire Terrier", temperament: "Tenacious, Friendly, Devoted, Loyal, Attentive, Courageous"),
-        DogBreed(name: "American Water Spaniel", temperament: "Friendly, Energetic, Obedient, Intelligent, Protective, Trainable"),
-        DogBreed(name: "Anatolian Shepherd Dog", temperament: "Steady, Bold, Independent, Confident, Intelligent, Proud"),
-        DogBreed(name: "Appenzeller Sennenhund", temperament: "Reliable, Fearless, Energetic, Lively, Self-assured")
-    ]
+    var dogBreeds: [DogBreed] = []
+    
+    var loader: DogBreedsLoader? = RemoteDogBreedsLoader()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loader?.load(completion: { dogBreeds, error in
+            if let dogBreeds = dogBreeds {
+                self.dogBreeds = dogBreeds
+                if Thread.isMainThread {
+                    self.tableView.reloadData()
+                } else {
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+            if let error = error {
+                print("Failure with error: ", error)
+            }
+        })
+        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     

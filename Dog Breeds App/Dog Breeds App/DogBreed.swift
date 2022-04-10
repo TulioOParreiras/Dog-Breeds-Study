@@ -7,12 +7,12 @@
 
 import Foundation
 
-class DogBreed {
+class DogBreed: Decodable {
     
     let name: String    
-    let temperament: String
+    let temperament: String?
     
-    init(name: String, temperament: String) {
+    init(name: String, temperament: String?) {
         self.name = name
         self.temperament = temperament
     }
