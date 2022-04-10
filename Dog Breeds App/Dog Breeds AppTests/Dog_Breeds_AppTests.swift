@@ -9,7 +9,7 @@ import XCTest
 @testable import Dog_Breeds_App
 
 class MockDogBreedsLoader: DogBreedsLoader {
-    func load(completion: @escaping ([DogBreed]?, Error?) -> Void) {
+    func load(completion: @escaping (Result<[DogBreed], Error>) -> Void) {
         let dogBreeds: [DogBreed] = [
             DogBreed(name: "Affenpinscher", temperament: "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving"),
             DogBreed(name: "Afghan Hound", temperament: "Aloof, Clownish, Dignified, Independent, Happy"),
@@ -22,7 +22,7 @@ class MockDogBreedsLoader: DogBreedsLoader {
             DogBreed(name: "Alaskan Malamute", temperament: "Friendly, Affectionate, Devoted, Loyal, Dignified, Playful"),
             DogBreed(name: "American Bulldog", temperament: "Friendly, Assertive, Energetic, Loyal, Gentle, Confident, Dominant"),
         ]
-        completion(dogBreeds, nil)
+        completion(.success(dogBreeds))
     }
     
 }
@@ -31,7 +31,7 @@ class Dog_Breeds_AppTests: XCTestCase {
 
     func test_viewLoad_rendersDogBreeds() {
         let sut = BreedListViewController()
-        sut.loader = MockDogBreedsLoader()
+        sut.setLoader(MockDogBreedsLoader())
         
         sut.loadViewIfNeeded()
         
