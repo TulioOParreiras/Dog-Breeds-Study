@@ -8,8 +8,15 @@
 import XCTest
 @testable import Dog_Breeds_App
 
-class MockDogBreedsLoader: DogBreedsLoader {
-    func load(completion: @escaping (Result<[DogBreed], Error>) -> Void) {
+class Dog_Breeds_AppTests: XCTestCase {
+
+    func test_viewLoad_rendersDogBreeds() {
+        let loader = MockDogBreedsLoader()
+        let sut = BreedListViewController()
+        sut.setLoader(loader)
+        
+        sut.loadViewIfNeeded()
+        
         let dogBreeds: [DogBreed] = [
             DogBreed(name: "Affenpinscher", temperament: "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving"),
             DogBreed(name: "Afghan Hound", temperament: "Aloof, Clownish, Dignified, Independent, Happy"),
@@ -22,35 +29,11 @@ class MockDogBreedsLoader: DogBreedsLoader {
             DogBreed(name: "Alaskan Malamute", temperament: "Friendly, Affectionate, Devoted, Loyal, Dignified, Playful"),
             DogBreed(name: "American Bulldog", temperament: "Friendly, Assertive, Energetic, Loyal, Gentle, Confident, Dominant"),
         ]
-        completion(.success(dogBreeds))
-    }
-    
-}
-
-class Dog_Breeds_AppTests: XCTestCase {
-
-    func test_viewLoad_rendersDogBreeds() {
-        let sut = BreedListViewController()
-        sut.setLoader(MockDogBreedsLoader())
-        
-        sut.loadViewIfNeeded()
+        loader.completeLoading(with: dogBreeds)
         
         let dataSource = sut.tableView.dataSource
         let numberOfRows = dataSource?.tableView(sut.tableView,
                                                  numberOfRowsInSection: 0)
-        
-        let dogBreeds: [DogBreed] = [
-            DogBreed(name: "Affenpinscher", temperament: "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving"),
-            DogBreed(name: "Afghan Hound", temperament: "Aloof, Clownish, Dignified, Independent, Happy"),
-            DogBreed(name: "African Hunting Dog", temperament: "Wild, Hardworking, Dutiful"),
-            DogBreed(name: "Airedale Terrier", temperament: "Outgoing, Friendly, Alert, Confident, Intelligent, Courageous"),
-            DogBreed(name: "Akbash Dog", temperament: "Loyal, Independent, Intelligent, Brave"),
-            DogBreed(name: "Akita", temperament: "Docile, Alert, Responsive, Dignified, Composed, Friendly, Receptive, Faithful, Courageous"),
-            DogBreed(name: "Alapaha Blue Blood", temperament: "Loving, Protective, Trainable, Dutiful, Responsible"),
-            DogBreed(name: "Alaskan Husky", temperament: "Friendly, Energetic, Loyal, Gentle, Confident"),
-            DogBreed(name: "Alaskan Malamute", temperament: "Friendly, Affectionate, Devoted, Loyal, Dignified, Playful"),
-            DogBreed(name: "American Bulldog", temperament: "Friendly, Assertive, Energetic, Loyal, Gentle, Confident, Dominant"),
-        ]
         let expectedNumberOfRows = dogBreeds.count
         
         guard numberOfRows == expectedNumberOfRows else {
@@ -76,6 +59,21 @@ class Dog_Breeds_AppTests: XCTestCase {
                 XCTAssertEqual(cell?.backgroundColor, nil)
             }
         }
+    }
+    
+}
+
+
+class MockDogBreedsLoader: DogBreedsLoader {
+    
+    var loadRequests = [((Result<[DogBreed], Error>) -> Void)]()
+    
+    func load(completion: @escaping (Result<[DogBreed], Error>) -> Void) {
+        loadRequests.append(completion)
+    }
+    
+    func completeLoading(with dogBreeds: [DogBreed], at index: Int = 0) {
+        loadRequests[index](.success(dogBreeds))
     }
     
 }
