@@ -17,10 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
-        let viewController = storyboard.instantiateInitialViewController() as? BreedListViewController
-        viewController?.setLoader(RemoteDogBreedsLoader())
+        let viewController = storyboard.instantiateInitialViewController() as! BreedListViewController
+        viewController.setLoader(RemoteDogBreedsLoader())
         
-        window?.rootViewController = viewController
+        window?.rootViewController = UINavigationController(rootViewController: viewController)
         
         window?.makeKeyAndVisible()
     }

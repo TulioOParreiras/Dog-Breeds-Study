@@ -20,6 +20,7 @@
 		D26158B728030E1600BDACE9 /* RemoteDogBreedsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26158B628030E1600BDACE9 /* RemoteDogBreedsLoader.swift */; };
 		D26158B928030E2400BDACE9 /* DogBreedsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26158B828030E2400BDACE9 /* DogBreedsLoader.swift */; };
 		D2A46D6D281EA9BB009CCF15 /* BreedDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A46D6C281EA9BB009CCF15 /* BreedDetailsViewController.swift */; };
+		D2A46D6F281EABB2009CCF15 /* BreedDetailsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A46D6E281EABB2009CCF15 /* BreedDetailsViewControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		D26158B628030E1600BDACE9 /* RemoteDogBreedsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDogBreedsLoader.swift; sourceTree = "<group>"; };
 		D26158B828030E2400BDACE9 /* DogBreedsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedsLoader.swift; sourceTree = "<group>"; };
 		D2A46D6C281EA9BB009CCF15 /* BreedDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedDetailsViewController.swift; sourceTree = "<group>"; };
+		D2A46D6E281EABB2009CCF15 /* BreedDetailsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedDetailsViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				D23451D427F9B0550056CF71 /* Dog_Breeds_AppTests.swift */,
+				D2A46D6E281EABB2009CCF15 /* BreedDetailsViewControllerTests.swift */,
 			);
 			path = "Dog Breeds AppTests";
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2A46D6F281EABB2009CCF15 /* BreedDetailsViewControllerTests.swift in Sources */,
 				D23451D527F9B0550056CF71 /* Dog_Breeds_AppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
