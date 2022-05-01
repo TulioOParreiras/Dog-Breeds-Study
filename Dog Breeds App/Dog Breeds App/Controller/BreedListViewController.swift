@@ -47,7 +47,6 @@ class BreedListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let controller = UIViewController()
-        let navigationController = navigationController
         navigationController?.pushViewController(controller, animated: false)
     }
     
