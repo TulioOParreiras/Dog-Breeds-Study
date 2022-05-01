@@ -47,6 +47,8 @@ class BreedListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let controller = BreedDetailsViewController()
+        let dogBreed = dogBreeds[indexPath.row]
+        controller.dogBreed = dogBreed
         navigationController?.pushViewController(controller, animated: false)
     }
     

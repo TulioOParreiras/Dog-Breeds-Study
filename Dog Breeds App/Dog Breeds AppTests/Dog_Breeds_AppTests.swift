@@ -57,12 +57,15 @@ class Dog_Breeds_AppTests: XCTestCase {
         
         XCTAssertEqual(navigationController.children.count, 1)
         
+        let row = 0
         let delegate = sut.tableView.delegate
-        delegate?.tableView?(sut.tableView, didSelectRowAt: IndexPath(row: 0, section: 0))
+        delegate?.tableView?(sut.tableView, didSelectRowAt: IndexPath(row: row, section: 0))
         
         RunLoop.current.run(until: Date())
         XCTAssertEqual(navigationController.children.count, 2)
         XCTAssertTrue(navigationController.topViewController is BreedDetailsViewController)
+        let detailsController = navigationController.topViewController as! BreedDetailsViewController
+        XCTAssertEqual(detailsController.dogBreed?.name, dogBreeds[row].name)
     }
     
     // MARK: - Helpers

@@ -7,4 +7,7 @@
 
 import UIKit
 
-class BreedDetailsViewController: UIViewController { }
+class BreedDetailsViewController: UIViewController {
+    var dogBreed: DogBreed?
+    
+}
