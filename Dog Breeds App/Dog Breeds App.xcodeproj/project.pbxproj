@@ -19,6 +19,7 @@
 		D23451F227F9C2690056CF71 /* BreedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23451F127F9C2690056CF71 /* BreedListViewController.swift */; };
 		D26158B728030E1600BDACE9 /* RemoteDogBreedsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26158B628030E1600BDACE9 /* RemoteDogBreedsLoader.swift */; };
 		D26158B928030E2400BDACE9 /* DogBreedsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26158B828030E2400BDACE9 /* DogBreedsLoader.swift */; };
+		D2A46D6D281EA9BB009CCF15 /* BreedDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A46D6C281EA9BB009CCF15 /* BreedDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		D23451F127F9C2690056CF71 /* BreedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedListViewController.swift; sourceTree = "<group>"; };
 		D26158B628030E1600BDACE9 /* RemoteDogBreedsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDogBreedsLoader.swift; sourceTree = "<group>"; };
 		D26158B828030E2400BDACE9 /* DogBreedsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedsLoader.swift; sourceTree = "<group>"; };
+		D2A46D6C281EA9BB009CCF15 /* BreedDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				D23451F127F9C2690056CF71 /* BreedListViewController.swift */,
+				D2A46D6C281EA9BB009CCF15 /* BreedDetailsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D23451F027F9C25D0056CF71 /* DogBreed.swift in Sources */,
+				D2A46D6D281EA9BB009CCF15 /* BreedDetailsViewController.swift in Sources */,
 				D23451BE27F9B0520056CF71 /* AppDelegate.swift in Sources */,
 				D26158B728030E1600BDACE9 /* RemoteDogBreedsLoader.swift in Sources */,
 				D23451F227F9C2690056CF71 /* BreedListViewController.swift in Sources */,

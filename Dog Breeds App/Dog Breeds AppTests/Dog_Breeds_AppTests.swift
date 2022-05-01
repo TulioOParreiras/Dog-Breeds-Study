@@ -14,7 +14,7 @@ class Dog_Breeds_AppTests: XCTestCase {
         let (sut, loader) = makeSUT()
         sut.loadViewIfNeeded()
         
-        let dogBreeds: [DogBreed] = makeDogBreeds()
+        let dogBreeds: [DogBreed] = createDogBreeds()
         loader.completeLoading(with: dogBreeds)
         
         let dataSource = sut.tableView.dataSource
@@ -52,7 +52,7 @@ class Dog_Breeds_AppTests: XCTestCase {
         let navigationController = UINavigationController(rootViewController: sut)
         sut.loadViewIfNeeded()
         
-        let dogBreeds: [DogBreed] = makeDogBreeds()
+        let dogBreeds: [DogBreed] = createDogBreeds()
         loader.completeLoading(with: dogBreeds)
         
         XCTAssertEqual(navigationController.children.count, 1)
@@ -62,6 +62,7 @@ class Dog_Breeds_AppTests: XCTestCase {
         
         RunLoop.current.run(until: Date())
         XCTAssertEqual(navigationController.children.count, 2)
+        XCTAssertTrue(navigationController.topViewController is BreedDetailsViewController)
     }
     
     // MARK: - Helpers
@@ -73,7 +74,7 @@ class Dog_Breeds_AppTests: XCTestCase {
         return (sut, loader)
     }
     
-    func makeDogBreeds() -> [DogBreed] {
+    func createDogBreeds() -> [DogBreed] {
         let dogBreeds: [DogBreed] = [
             DogBreed(name: "Affenpinscher", temperament: "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving"),
             DogBreed(name: "Afghan Hound", temperament: "Aloof, Clownish, Dignified, Independent, Happy"),
